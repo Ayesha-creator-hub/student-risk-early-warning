@@ -1,0 +1,25 @@
+body { margin: 0; font-family: system-ui, sans-serif; background: #f3f4f6; color: #111827; }
+.app { max-width: 900px; margin: 0 auto; padding: 16px; }
+header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+nav button { margin-left: 6px; padding: 8px 14px; border: 1px solid #d1d5db; background: #fff; border-radius: 6px; cursor: pointer; text-transform: capitalize; }
+nav button.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+.card { background: #fff; border-radius: 10px; padding: 20px; margin-top: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+label { display: flex; flex-direction: column; font-size: 13px; gap: 4px; }
+input, select { padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+button[type=submit] { grid-column: 1 / -1; padding: 10px; background: #1d4ed8; color: #fff; border: 0; border-radius: 6px; cursor: pointer; font-size: 15px; }
+.error { color: #b91c1c; }
+.result { margin-top: 16px; padding: 16px; border-radius: 8px; }
+.result.High, .badge.High, .fill.High { background: #fecaca; }
+.result.Medium, .badge.Medium, .fill.Medium { background: #fde68a; }
+.result.Low, .badge.Low, .fill.Low { background: #bbf7d0; }
+.badge { padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; }
+.stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.stats div { flex: 1; min-width: 140px; background: #f9fafb; padding: 12px; border-radius: 8px; display: flex; flex-direction: column; }
+.stats b { font-size: 28px; }
+.barrow { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+.barrow span { width: 100px; font-size: 13px; }
+.track { flex: 1; background: #e5e7eb; height: 14px; border-radius: 7px; overflow: hidden; }
+.fill { height: 100%; }

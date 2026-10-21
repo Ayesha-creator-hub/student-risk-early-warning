@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Node
+node_modules/
+dist/
+
+# Runtime data (the app recreates it)
+*.db
+
+# Secrets and editor/OS files
+.env
+.env.*
+.vscode/
+.idea/
+Thumbs.db
