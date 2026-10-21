@@ -53,12 +53,6 @@ run all cells, and copy the three downloaded files (`risk_model.keras`,
 `preprocessor.joblib`, `feature_columns.json`) into `ml-model/`.
 Use the same scikit-learn version as in requirements.txt.
 
-## Limitations
-- Trained on public secondary-school data from Portugal, not university records
-- Small dataset (395 students), so results vary between splits
-- The risk score is a model output, not a true probability
-- Predictions support advisors and must not be used to label students
-- No login or user roles
 
 ## Data source
 P. Cortez and A. Silva. Using Data Mining to Predict Secondary School Student
