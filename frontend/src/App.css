@@ -23,3 +23,13 @@ th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e5e7eb; }
 .barrow span { width: 100px; font-size: 13px; }
 .track { flex: 1; background: #e5e7eb; height: 14px; border-radius: 7px; overflow: hidden; }
 .fill { height: 100%; }
+.center { text-align: center; }
+.muted { color: #6b7280; }
+.note { margin-top: 16px; font-size: 12px; color: #6b7280; text-align: center; }
+.roles { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+.role-card { width: 260px; padding: 20px; background: #fff; border: 1px solid #d1d5db; border-radius: 10px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 14px; }
+.role-card:hover { border-color: #1d4ed8; box-shadow: 0 1px 6px rgba(29,78,216,.25); }
+.role-card b { font-size: 16px; }
+.role-card span { color: #6b7280; }
+.role-badge { margin-left: 10px; padding: 4px 10px; background: #dbeafe; color: #1e40af; border-radius: 12px; font-size: 12px; }
+nav .switch { font-size: 12px; }

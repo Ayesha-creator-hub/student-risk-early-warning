@@ -23,7 +23,7 @@ Colab notebook (training) -> Keras model -> Flask API + SQLite -> React frontend
 | Model | At-risk precision | At-risk recall | At-risk F1 | Accuracy |
 |---|---|---|---|---|
 | Logistic regression (baseline) | 0.82 | 0.69 | 0.75 | 0.85 |
-| ANN | 0.69 | 0.85 | 0.76 | 0.82 |
+| ANN | 0.72 | 0.88 | 0.79 | 0.85 |
 
 The ANN catches more at-risk students (higher recall), at the cost of more false
 alarms, which suits an early warning use case.

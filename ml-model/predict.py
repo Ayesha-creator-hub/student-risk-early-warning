@@ -30,8 +30,8 @@ def predict_student(data: dict):
     return {"risk_percent": round(p * 100, 1), "risk_level": level, "recommendation": advice}
 
 if __name__ == "__main__":
-    sample = {"age": 17, "Medu": 2, "Fedu": 2, "studytime": 1, "failures": 2,
-              "goout": 4, "health": 3, "absences": 12, "G1": 7,
-              "sex": "M", "address": "R", "schoolsup": "no",
-              "famsup": "no", "higher": "yes", "internet": "no"}
+    sample = {"age": 17, "studytime": 1, "failures": 2, "traveltime": 3,
+        "goout": 4, "health": 3, "absences": 12, "G1": 7,
+        "sex": "M", "address": "R", "schoolsup": "no", "famsup": "no",
+        "higher": "yes", "internet": "no", "activities": "no"}
     print(predict_student(sample))

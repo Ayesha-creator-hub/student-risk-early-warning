@@ -3,43 +3,105 @@ import "./App.css";
 
 const API = "http://localhost:5000";
 
+const STUDY_TIME = [
+  { value: 1, label: "Less than 2 hours" },
+  { value: 2, label: "2 to 5 hours" },
+  { value: 3, label: "5 to 10 hours" },
+  { value: 4, label: "More than 10 hours" },
+];
+const EDUCATION = [
+  { value: 0, label: "None" },
+  { value: 1, label: "Primary (4th grade)" },
+  { value: 2, label: "5th to 9th grade" },
+  { value: 3, label: "Secondary education" },
+  { value: 4, label: "Higher education" },
+];
+const GO_OUT = [
+  { value: 1, label: "1 - Very low" },
+  { value: 2, label: "2 - Low" },
+  { value: 3, label: "3 - Medium" },
+  { value: 4, label: "4 - High" },
+  { value: 5, label: "5 - Very high" },
+];
+const HEALTH = [
+  { value: 1, label: "1 - Very bad" },
+  { value: 2, label: "2 - Bad" },
+  { value: 3, label: "3 - Average" },
+  { value: 4, label: "4 - Good" },
+  { value: 5, label: "5 - Very good" },
+];
+const TRAVEL_TIME = [
+  { value: 1, label: "Less than 15 minutes" },
+  { value: 2, label: "15 to 30 minutes" },
+  { value: 3, label: "30 minutes to 1 hour" },
+  { value: 4, label: "More than 1 hour" },
+];
+
 const FIELDS = [
   { name: "student_name", label: "Student name", type: "text" },
   { name: "age", label: "Age", type: "number", min: 15, max: 22 },
   { name: "sex", label: "Sex", type: "select", options: ["F", "M"] },
-  { name: "address", label: "Address", type: "select", options: ["U", "R"] },
-  { name: "Medu", label: "Mother's education (0-4)", type: "number", min: 0, max: 4 },
-  { name: "Fedu", label: "Father's education (0-4)", type: "number", min: 0, max: 4 },
-  { name: "studytime", label: "Weekly study time (1-4)", type: "number", min: 1, max: 4 },
+  { name: "address", label: "Address (U = urban, R = rural)", type: "select", options: ["U", "R"] },
+  { name: "studytime", label: "Weekly study time", type: "select", numeric: true, options: STUDY_TIME },
   { name: "failures", label: "Past failures (0-4)", type: "number", min: 0, max: 4 },
+  { name: "traveltime", label: "Travel time from home to school", type: "select", numeric: true, options: TRAVEL_TIME },
+  { name: "activities", label: "Extra-curricular activities", type: "select", options: ["yes", "no"] },
   { name: "schoolsup", label: "Extra school support", type: "select", options: ["yes", "no"] },
   { name: "famsup", label: "Family support", type: "select", options: ["yes", "no"] },
   { name: "higher", label: "Wants higher education", type: "select", options: ["yes", "no"] },
   { name: "internet", label: "Internet at home", type: "select", options: ["yes", "no"] },
-  { name: "goout", label: "Going out (1-5)", type: "number", min: 1, max: 5 },
-  { name: "health", label: "Health (1-5)", type: "number", min: 1, max: 5 },
+  { name: "goout", label: "Going out with friends", type: "select", numeric: true, options: GO_OUT },
+  { name: "health", label: "Health", type: "select", numeric: true, options: HEALTH },
   { name: "absences", label: "Absences", type: "number", min: 0, max: 100 },
   { name: "G1", label: "First period grade (0-20)", type: "number", min: 0, max: 20 },
 ];
 
 const EMPTY = {
-  student_name: "", age: 17, sex: "F", address: "U", Medu: 2, Fedu: 2, studytime: 2,
-  failures: 0, schoolsup: "no", famsup: "yes", higher: "yes", internet: "yes",
-  goout: 3, health: 3, absences: 0, G1: 10,
+  student_name: "", age: 17, sex: "F", address: "U", studytime: 2,
+  failures: 0, traveltime: 1, activities: "no", schoolsup: "no", famsup: "yes",
+  higher: "yes", internet: "yes", goout: 3, health: 3, absences: 0, G1: 10,
+};
+
+const ROLES = {
+  teacher: { label: "Teacher", tabs: ["predict"], text: "Enter a student's details and get a risk score." },
+  advisor: { label: "Advisor", tabs: ["predict", "history", "dashboard"], text: "Predict, review the history and follow up on at-risk students." },
 };
 
 export default function App() {
+  const [role, setRole] = useState(null);
   const [tab, setTab] = useState("predict");
+
+  if (!role) {
+    return (
+      <div className="app">
+        <h1 className="center">Student Risk Early Warning</h1>
+        <p className="center muted">Choose how you want to continue</p>
+        <div className="roles">
+          {Object.entries(ROLES).map(([key, r]) => (
+            <button key={key} className="role-card" onClick={() => { setRole(key); setTab("predict"); }}>
+              <b>Continue as {r.label}</b>
+              <span>{r.text}</span>
+            </button>
+          ))}
+        </div>
+        <Note />
+      </div>
+    );
+  }
+
+  const tabs = ROLES[role].tabs;
   return (
     <div className="app">
       <header>
         <h1>Student Risk Early Warning</h1>
         <nav>
-          {["predict", "history", "dashboard"].map((t) => (
+          {tabs.map((t) => (
             <button key={t} className={tab === t ? "active" : ""} onClick={() => setTab(t)}>
               {t}
             </button>
           ))}
+          <span className="role-badge">{ROLES[role].label}</span>
+          <button className="switch" onClick={() => setRole(null)}>Switch role</button>
         </nav>
       </header>
       <main>
@@ -47,7 +109,18 @@ export default function App() {
         {tab === "history" && <History />}
         {tab === "dashboard" && <Dashboard />}
       </main>
+      <Note />
     </div>
+  );
+}
+
+function Note() {
+  return (
+    <p className="note">
+      Prototype trained on public secondary-school data (UCI Student Performance).
+      The risk score is a model output, not a true probability, and is meant to
+      support advisors, not to label students. Roles are simulated (no login).
+    </p>
   );
 }
 
@@ -61,7 +134,7 @@ function Predict() {
     e.preventDefault();
     setLoading(true); setError(""); setResult(null);
     const payload = { ...form };
-    FIELDS.filter((f) => f.type === "number").forEach((f) => (payload[f.name] = Number(payload[f.name])));
+    FIELDS.filter((f) => f.type === "number" || f.numeric).forEach((f) => (payload[f.name] = Number(payload[f.name])));
     try {
       const res = await fetch(`${API}/predict`, {
         method: "POST",
@@ -86,7 +159,11 @@ function Predict() {
             {f.label}
             {f.type === "select" ? (
               <select value={form[f.name]} onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}>
-                {f.options.map((o) => <option key={o}>{o}</option>)}
+                {f.options.map((o) => {
+                  const value = typeof o === "object" ? o.value : o;
+                  const label = typeof o === "object" ? o.label : o;
+                  return <option key={value} value={value}>{label}</option>;
+                })}
               </select>
             ) : (
               <input
@@ -160,7 +237,7 @@ function History() {
 
 function Dashboard() {
   const [s, setS] = useState(null);
-  useEffect(() => { fetch(`${API}/stats`).then((r) => r.json()).then(setS).catch(() => {}); }, []);
+  useEffect(() => { fetch(`${API}/stats`).then((r) => r.json()).then(setS).catch(() => { }); }, []);
   if (!s) return <div className="card">Loading... (is the backend running?)</div>;
   const bar = (n) => (s.total ? (n / s.total) * 100 : 0);
   return (

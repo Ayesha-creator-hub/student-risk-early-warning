@@ -10,11 +10,12 @@ app = Flask(__name__)
 CORS(app)
 init_db()
 
-RANGES = {"age": (15, 22), "Medu": (0, 4), "Fedu": (0, 4), "studytime": (1, 4),
-          "failures": (0, 4), "goout": (1, 5), "health": (1, 5),
+RANGES = {"age": (15, 22), "studytime": (1, 4), "failures": (0, 4),
+          "traveltime": (1, 4), "goout": (1, 5), "health": (1, 5),
           "absences": (0, 100), "G1": (0, 20)}
 CATS = {"sex": ["F", "M"], "address": ["U", "R"], "schoolsup": ["yes", "no"],
-        "famsup": ["yes", "no"], "higher": ["yes", "no"], "internet": ["yes", "no"]}
+        "famsup": ["yes", "no"], "higher": ["yes", "no"],
+        "internet": ["yes", "no"], "activities": ["yes", "no"]}
 
 def validate(data):
     for k, (lo, hi) in RANGES.items():
