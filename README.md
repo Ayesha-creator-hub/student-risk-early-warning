@@ -57,3 +57,17 @@ Use the same scikit-learn version as in requirements.txt.
 ## Data source
 P. Cortez and A. Silva. Using Data Mining to Predict Secondary School Student
 Performance. FUBUTEC 2008. https://archive.ics.uci.edu/dataset/320/student+performance
+
+### Experiment 2: higher-education dataset
+UCI "Predict Students' Dropout and Academic Success" (4,424 undergraduate
+students, 885 in the test set). At risk = Dropout. Second-semester
+information excluded; first-semester information included.
+
+| Model | At-risk precision | At-risk recall | At-risk F1 | Accuracy |
+|---|---|---|---|---|
+| Logistic regression | 0.85 | 0.70 | 0.77 | 0.87 |
+| ANN | 0.79 | 0.74 | 0.76 | 0.85 |
+
+The ANN identified 210 of 284 dropouts (74 missed, 56 false alarms). Overall
+performance is similar to logistic regression; the ANN trades some precision
+for higher recall. The web app uses the model from the first experiment.
